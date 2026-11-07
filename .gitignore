@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.astro/
+.DS_Store
+npm-debug.log*
+.env
+.env.*
+!.env.example
+.academic-build/
+academic-site/.bundle/
+academic-site/vendor/
+academic-site/_site/
+academic-site/.jekyll-cache/
+academic-site/.jekyll-metadata

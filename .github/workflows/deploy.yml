@@ -1,0 +1,86 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Set Astro deployment paths
+        shell: bash
+        env:
+          ASTRO_SITE: ${{ vars.ASTRO_SITE }}
+          ASTRO_BASE_PATH: ${{ vars.ASTRO_BASE_PATH }}
+        run: |
+          owner="$GITHUB_REPOSITORY_OWNER"
+          repo="${GITHUB_REPOSITORY#*/}"
+          site="${ASTRO_SITE:-https://${owner}.github.io}"
+          base="$ASTRO_BASE_PATH"
+
+          if [[ -z "$base" ]]; then
+            shopt -s nocasematch
+            if [[ "$repo" == "${owner}.github.io" ]]; then
+              base="/"
+            else
+              base="/$repo"
+            fi
+          fi
+
+          echo "ASTRO_SITE=$site" >> "$GITHUB_ENV"
+          echo "ASTRO_BASE_PATH=$base" >> "$GITHUB_ENV"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Set up Ruby and Jekyll
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+          working-directory: academic-site
+
+      - name: Build static site
+        run: npm run build
+
+      - name: Verify combined output
+        run: npm run verify:academic
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

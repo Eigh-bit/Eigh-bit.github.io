@@ -1,0 +1,13 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+
+const home = import.meta.env.BASE_URL;
+---
+
+<SiteLayout title="Bookshelf | Shiyao Chen">
+  <section class="placeholder-page" aria-labelledby="page-title">
+    <h1 id="page-title">Bookshelf</h1>
+    <p>Coming soon.</p>
+    <a class="back-link" href={home}><span aria-hidden="true">←</span> 返回首页</a>
+  </section>
+</SiteLayout>

@@ -1,0 +1,62 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import HomeBackground from '../components/HomeBackground.astro';
+import '../styles/home-background.css';
+
+const base = import.meta.env.BASE_URL;
+
+const spaces = [
+  {
+    number: '01',
+    title: 'Academic',
+    subtitle: '学术主页',
+    description: 'Research & Projects',
+    href: `${base}academic/`,
+  },
+  {
+    number: '02',
+    title: 'Bookshelf',
+    subtitle: '我的书架',
+    description: 'Books & Reading Notes',
+    href: `${base}bookshelf/`,
+  },
+] as const;
+---
+
+<SiteLayout
+  title="陈仕尧 | Shiyao Chen"
+  description="陈仕尧的个人主页，关于阅读、研究与日常生活。"
+  homeBackground
+>
+  <div class="home-page">
+    <section class="introduction" aria-labelledby="welcome-heading">
+      <HomeBackground />
+      <div class="introduction__copy">
+        <p class="section-label"><span aria-hidden="true"></span> Personal homepage</p>
+        <h1 id="welcome-heading">你好，我是陈仕尧。</h1>
+        <p class="introduction__text">
+          平时读书、做研究，也留意日常生活里值得记录的事情。这里是学术主页与私人书架的入口。
+        </p>
+      </div>
+
+    </section>
+
+    <div class="home-links">
+    <nav class="space-grid" aria-label="个人空间">
+      {spaces.map((space) => (
+        <a class="space-card" href={space.href}>
+          <span class="space-card__topline">
+            <span class="space-card__number">{space.number}</span>
+            <span class="space-card__arrow" aria-hidden="true">↗</span>
+          </span>
+          <span class="space-card__main">
+            <span class="space-card__title">{space.title}</span>
+            <span class="space-card__subtitle" lang="zh-CN">{space.subtitle}</span>
+          </span>
+          <span class="space-card__description">{space.description}</span>
+        </a>
+      ))}
+    </nav>
+    </div>
+  </div>
+</SiteLayout>

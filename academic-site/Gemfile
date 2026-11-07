@@ -1,0 +1,17 @@
+source "https://rubygems.org"
+
+# Build upstream Jekyll directly; publish the compiled artifact with GitHub Actions.
+# Jekyll Sass converter 1 preserves upstream Susy / Breakpoint styles.
+gem "jekyll", "~> 3.10.0"
+gem "jekyll-sass-converter", "~> 1.5"
+gem "kramdown-parser-gfm", "~> 1.1"
+gem "jekyll-paginate", "~> 1.1"
+gem "jekyll-sitemap", "~> 1.4"
+gem "jekyll-gist", "~> 1.5"
+gem "jekyll-feed", "~> 0.17"
+gem "jekyll-redirect-from", "~> 0.16"
+gem "webrick", "~> 1.8"
+gem "csv"
+gem "base64"
+gem "tzinfo", "~> 2.0"
+gem "tzinfo-data"

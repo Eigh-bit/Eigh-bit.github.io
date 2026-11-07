@@ -1,0 +1,7 @@
+{% for project in site.data.projects %}
+<article class="research-project">
+  <h2 class="research-project__title">{% if project.url %}<a href="{{ project.url | escape }}">{{ project.title | escape }}</a>{% else %}{{ project.title | escape }}{% endif %}</h2>
+  <p class="research-project__description">{{ project.description | escape }}</p>
+  {% if project.status %}<p class="research-project__status"><span>Status</span> {{ project.status | escape }}</p>{% endif %}
+</article>
+{% endfor %}

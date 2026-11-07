@@ -1,0 +1,100 @@
+/* Homepage only: AcadHomepage and Bookshelf retain their existing appearance. */
+body.home-wallpaper {
+  --ink: #f5f8ff;
+  --muted: #d6e3f4;
+  --line: rgba(221, 236, 255, .24);
+  --moss: #a8e7fa;
+  --card: #162451;
+  background: #101747;
+  isolation: isolate;
+}
+.home-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background: #101747;
+}
+.home-backdrop__poster,
+.home-backdrop__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.home-backdrop__video { opacity: 0; }
+.home-backdrop__video.is-ready { opacity: 1; }
+.home-backdrop__shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(3, 9, 31, .2) 0%, rgba(3, 9, 31, .3) 60%, #101747 100%);
+}
+.home-wallpaper .site-shell { position: relative; padding: 0; }
+.home-wallpaper .site-header {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(calc(100% - 72px), 1040px);
+  z-index: 2;
+}
+.home-wallpaper .site-main { width: 100%; max-width: none; }
+.home-wallpaper .home-page { margin: 0; padding: 0; }
+.home-wallpaper .introduction {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  min-height: clamp(500px, 64svh, 720px);
+  justify-content: center;
+  align-items: center;
+  padding: 125px 36px 100px;
+  margin: 0;
+}
+.home-wallpaper .introduction__copy {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 680px;
+  text-align: center;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, .65);
+}
+.home-wallpaper .section-label { justify-content: center; }
+.home-wallpaper .introduction__text { margin: 0 auto; max-width: 36em; text-wrap: balance; }
+.home-wallpaper .introduction h1 { color: var(--ink); }
+.home-links { padding: 44px 36px 60px; background: #101747; }
+.home-wallpaper .space-grid { width: min(100%, 1040px); margin: 0 auto; }
+.home-wallpaper .space-card { border-color: rgba(221, 236, 255, .28); }
+.home-wallpaper .space-card:hover { background: #1d315e; border-color: #b4def4; }
+.home-wallpaper .space-card__number,
+.home-wallpaper .space-card__description,
+.home-wallpaper .site-footer p { color: var(--muted); }
+.home-wallpaper .site-footer { width: min(calc(100% - 72px), 1040px); }
+.background-toggle {
+  position: absolute;
+  right: max(36px, calc((100% - 1040px) / 2));
+  bottom: 23px;
+  z-index: 2;
+  min-height: 38px;
+  padding: 8px 13px;
+  border: 1px solid rgba(221, 236, 255, .36);
+  border-radius: 4px;
+  background: #122347;
+  color: #edf5ff;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+.background-toggle:hover { background: #1e365f; }
+.background-toggle:focus-visible { outline: 2px solid #b9f2ff; outline-offset: 4px; }
+.background-toggle:disabled { display: none; }
+@media (max-width: 760px) {
+  .home-wallpaper .site-header, .home-wallpaper .site-footer { width: calc(100% - 46px); }
+  .home-wallpaper .introduction { min-height: 560px; padding: 116px 23px 100px; }
+  .home-links { padding: 32px 23px 44px; }
+  .home-backdrop__poster, .home-backdrop__video { object-position: 66% center; }
+  .home-backdrop__shade { background: linear-gradient(180deg, rgba(3, 9, 31, .3), rgba(3, 9, 31, .4) 60%, #101747 100%); }
+  .background-toggle { right: 23px; bottom: 20px; }
+}

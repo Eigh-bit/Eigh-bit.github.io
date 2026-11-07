@@ -1,0 +1,33 @@
+{% if site.data.publications.size > 0 %}
+<h1 id="publications"><span class="section-marker" aria-hidden="true">📝</span> Publications</h1>
+{% for paper in site.data.publications %}
+<div class="paper-box">
+  {% if paper.image %}<div class="paper-box-image"><div>{% if paper.venue %}<div class="badge">{{ paper.venue | escape }}</div>{% endif %}<img src="{{ paper.image | relative_url }}" alt="{{ paper.title | escape }}" loading="lazy"></div></div>{% endif %}
+  <div class="paper-box-text">
+    <p>{% if paper.url %}<a href="{{ paper.url | escape }}">{{ paper.title | escape }}</a>{% else %}{{ paper.title | escape }}{% endif %}</p>
+    <p>{{ paper.authors | escape }}</p>
+    {% if paper.description %}<p>{{ paper.description | escape }}</p>{% endif %}
+  </div>
+</div>
+{% endfor %}
+{% endif %}
+{% if site.data.news.size > 0 %}
+<h1 id="news"><span class="section-marker" aria-hidden="true">📰</span> News</h1>
+<ul>{% for item in site.data.news %}<li><em>{{ item.date | escape }}</em> — {{ item.text | escape }}</li>{% endfor %}</ul>
+{% endif %}
+{% if site.data.honors.size > 0 %}
+<h1 id="awards"><span class="section-marker" aria-hidden="true">🏆</span> Honors &amp; Awards</h1>
+{% assign year_groups = site.data.honors | group_by: "year" | sort: "name" | reverse %}
+<ul class="honors-list">
+  {% for group in year_groups %}
+  <li class="honor-year-group">
+    <span class="honor-year">{{ group.name | escape }}</span>
+    <ul class="honor-items">
+      {% for item in group.items %}
+      <li lang="en">{{ item.title | escape }}{% if item.distinction %} — <span class="honor-distinction">{{ item.distinction | escape }}</span>{% endif %}</li>
+      {% endfor %}
+    </ul>
+  </li>
+  {% endfor %}
+</ul>
+{% endif %}

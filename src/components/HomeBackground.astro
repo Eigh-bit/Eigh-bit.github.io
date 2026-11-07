@@ -1,0 +1,70 @@
+---
+const base = import.meta.env.BASE_URL;
+---
+
+<div class="home-backdrop" aria-hidden="true">
+  <img class="home-backdrop__poster" src={`${base}media/persona-3-poster.jpg`} alt="" width="1440" height="810" fetchpriority="high" />
+  <video
+    class="home-backdrop__video"
+    muted
+    loop
+    playsinline
+    preload="none"
+    tabindex="-1"
+    data-desktop={`${base}media/persona-3-background.mp4`}
+    data-mobile={`${base}media/persona-3-background-mobile.mp4`}
+  ></video>
+  <div class="home-backdrop__shade"></div>
+</div>
+<button class="background-toggle" type="button" aria-label="播放背景动画" disabled>播放背景</button>
+
+<script>
+  const video = document.querySelector<HTMLVideoElement>('.home-backdrop__video');
+  const toggle = document.querySelector<HTMLButtonElement>('.background-toggle');
+  if (video && toggle) {
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const connection = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
+    let requested = !reducedMotion.matches && !connection?.saveData;
+    let loading: Promise<void> | undefined;
+    const label = () => {
+      toggle.textContent = requested ? '暂停背景' : '播放背景';
+      toggle.setAttribute('aria-label', requested ? '暂停背景动画' : '播放背景动画');
+    };
+    const sync = async () => {
+      label();
+      if (!requested || document.hidden) {
+        video.pause();
+        return;
+      }
+      if (!video.getAttribute('src')) {
+        video.src = (window.matchMedia('(max-width: 760px)').matches ? video.dataset.mobile : video.dataset.desktop) || '';
+        video.muted = true;
+      }
+      if (!loading) {
+        loading = video.play().catch(() => {
+          requested = false;
+          label();
+        }).finally(() => {
+          loading = undefined;
+          if (!requested || document.hidden) video.pause();
+        });
+      }
+      await loading;
+    };
+    video.addEventListener('playing', () => video.classList.add('is-ready'));
+    video.addEventListener('error', () => {
+      requested = false;
+      video.classList.remove('is-ready');
+      label();
+    });
+    toggle.disabled = false;
+    toggle.addEventListener('click', () => { requested = !requested; void sync(); });
+    document.addEventListener('visibilitychange', () => { void sync(); });
+    reducedMotion.addEventListener('change', () => {
+      requested = !reducedMotion.matches && !connection?.saveData;
+      if (reducedMotion.matches) video.classList.remove('is-ready');
+      void sync();
+    });
+    void sync();
+  }
+</script>

@@ -1,0 +1,8 @@
+- title: "TeleRT (L1) — White-box LLM Safety Diagnostics Platform"
+  description: "I am developing TeleRT to study the relationship between internal model states and LLM safety behavior. The work focuses on observing safety-related states, locating relevant layers, and supporting causal experiments."
+  status: "Research in progress"
+
+- title: "Spectra Audio Deepfake Detection"
+  url: "https://github.com/Eigh-bit/Spectra_audio_deepfake_detection"
+  description: "A Python toolkit for detecting synthetic audio with Spectra-0 and XLS-R. It combines predictions from the beginning, middle, and end of each clip, runs local batch inference, and exports per-file results to CSV."
+  status: "Open source · Reproducible inference example"

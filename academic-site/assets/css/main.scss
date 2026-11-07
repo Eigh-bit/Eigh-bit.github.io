@@ -1,0 +1,187 @@
+---
+---
+
+/*
+ *    Minimal Mistakes Jekyll Theme
+ *
+ *  - Michael Rose
+ *  - mademistakes.com
+ *  - https://twitter.com/mmistakes
+ *
+*/
+
+@import "vendor/breakpoint/breakpoint"; // media query mixins
+@import "variables";
+@import "mixins";
+@import "vendor/susy/susy";
+
+@import "reset";
+@import "base";
+
+@import "utilities";
+@import "animations";
+@import "tables";
+@import "buttons";
+@import "notices";
+@import "masthead";
+@import "navigation";
+@import "footer";
+@import "syntax";
+
+@import "forms";
+
+@import "page";
+@import "archive";
+@import "sidebar";
+
+@import "vendor/font-awesome/fontawesome";
+@import "vendor/font-awesome/solid";
+@import "vendor/font-awesome/brands";
+@import "vendor/magnific-popup/magnific-popup";
+@import "print";
+
+.paper-box {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    border-bottom: 1px #efefef solid;
+    padding: 2em 0 2em 0;
+    
+
+    .paper-box-image{
+        justify-content: center;
+        display: flex;
+        width: 100%;
+        order: 2;
+        img {
+            max-width: 400px;
+            box-shadow: 3px 3px 6px #888;
+            object-fit: cover;
+        }
+    }
+    
+    .paper-box-text{
+        max-width: 100%;
+        order: 1;
+    }
+    
+    @include breakpoint($medium) {
+        .paper-box-image{
+            justify-content: left;
+            min-width: 200px;
+            max-width: 40%;
+            order: 1;
+        }
+        
+        .paper-box-text{
+            justify-content: left;
+            padding-left: 2em;
+            max-width: 60%;
+            order: 2;
+        }
+
+    }
+
+
+}
+
+$scroll_offset : 2em;
+h1:before, .anchor:before { 
+    content: ''; 
+    display: block; 
+    position: relative; 
+    width: 0; 
+    height: $scroll_offset; 
+    margin-top: -$scroll_offset;
+}
+
+.badge {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    position: absolute;
+    margin-top: .5em;
+    margin-left: -.5em;
+    color: white;
+    background-color: #00369f;
+    font-size: .8em;
+}
+
+/* Small typography/accessibility additions; upstream layout and paper styles stay intact. */
+.page__content { overflow-wrap: break-word; }
+.author__name [lang="zh-CN"] { display: block; font-size: .9em; line-height: 1.5; }
+.author__content .author__bio { margin: .8em 0 .25em; }
+.author__content .author__affiliation { margin: 0 0 .65em; }
+.author__content .author__location { margin: 0 0 .8em; font-size: .9em; }
+.author__content .author__github { margin: 0 0 .5em; }
+.author__content .author__email { margin: 0; overflow-wrap: anywhere; }
+.page__content > h1 { margin-top: 1.8em; }
+.page__content > h1:first-of-type { margin-top: 0; }
+.section-marker { display: inline-block; margin-right: .25em; font-size: .9em; }
+.research-project { margin: .9em 0 0; }
+.research-project + .research-project {
+    padding-top: .8em;
+    border-top: 1px solid $border-color;
+}
+.page__content .research-project__title {
+    margin: 0 0 .7em;
+    font-size: 1.08em;
+    line-height: 1.5;
+}
+.page__content .research-project__description { margin: 0 0 .8em; }
+.page__content .research-project__status {
+    margin: 0;
+    font-size: .88em;
+    color: $gray;
+    line-height: 1.6;
+}
+.research-project__status > span {
+    margin-right: .55em;
+    font-weight: 600;
+    color: $dark-gray;
+}
+.page__content .honors-list { padding: 0; list-style: none; }
+.honor-year-group {
+    display: grid;
+    grid-template-columns: 3.5em minmax(0, 1fr);
+    gap: .8em;
+    margin: 1em 0;
+}
+.honor-year { font-weight: 600; font-variant-numeric: tabular-nums; }
+.page__content .honor-items { margin: 0; padding-left: 1.1em; }
+.honor-items li { margin: 0 0 .4em; }
+.honor-distinction { font-weight: 600; }
+.portrait-crop {
+    position: relative;
+    width: 75px;
+    aspect-ratio: 1;
+    overflow: hidden;
+    border-radius: 50%;
+    @include breakpoint($large) { width: 175px; border: 1px solid $border-color; }
+}
+/* Non-destructive 510 × 510 head-and-shoulders framing of the original photo,
+   at (450, 170) in its 1920 × 1280 preview coordinates. */
+.author__avatar .portrait-crop img {
+    position: absolute;
+    width: 376.470588%;
+    max-width: none;
+    min-width: 0;
+    height: auto;
+    left: -88.235294%;
+    top: -33.333333%;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+}
+.template-credit {
+    margin-top: 3em;
+    padding-top: 1em;
+    border-top: 1px solid $border-color;
+    font-size: .8em;
+    color: $gray;
+}
+a:focus-visible, button:focus-visible { outline: 2px solid $link-color; outline-offset: 3px; }
+@media (max-width: 924px) {
+    .author__name { overflow-wrap: anywhere; }
+}

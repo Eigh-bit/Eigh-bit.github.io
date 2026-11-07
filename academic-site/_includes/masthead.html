@@ -1,0 +1,19 @@
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav" aria-label="Academic navigation">
+        <button aria-label="More navigation links" aria-expanded="false"><div class="navicon"></div></button>
+        <ul class="visible-links">
+          <li class="masthead__menu-item masthead__menu-item--lg"><a href="{{ site.personal_home }}">← Personal Home</a></li>
+          {% for link in site.data.navigation.main %}
+            <li class="masthead__menu-item"><a href="{{ '/' | relative_url }}{{ link.url }}">{{ link.title }}</a></li>
+          {% endfor %}
+          {% if site.data.publications.size > 0 %}<li class="masthead__menu-item"><a href="{{ '/' | relative_url }}#publications">Publications</a></li>{% endif %}
+          {% if site.data.news.size > 0 %}<li class="masthead__menu-item"><a href="{{ '/' | relative_url }}#news">News</a></li>{% endif %}
+          {% if site.data.honors.size > 0 %}<li class="masthead__menu-item"><a href="{{ '/' | relative_url }}#awards">Honors &amp; Awards</a></li>{% endif %}
+        </ul>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
